@@ -1,0 +1,120 @@
+{
+  "annotation_type": "ego2robot_human_object_interaction",
+  "schema_version": 1,
+  "demo_id": "phone-demo-002",
+  "video_filename": "trial_02.mp4",
+  "coordinate_frame": "image_pixels_top_left",
+  "image_width_px": 1920,
+  "image_height_px": 1080,
+  "notes": "Hand points are manual clicks. Prefer index fingertip; record explicit fallback landmark when used. No interpolation is performed.",
+  "events": [
+    {
+      "timestamp_s": 0.033,
+      "event_type": "uncertain_event",
+      "object_center_px": [
+        1053.9,
+        305.1
+      ],
+      "object_center_norm": [
+        0.548913,
+        0.282533
+      ],
+      "hand_point_px": null,
+      "hand_point_norm": null,
+      "hand_point_kind": null,
+      "hand_visibility": "uncertain",
+      "confidence": 0.9,
+      "annotation_source": "imported_canonical_object_only"
+    },
+    {
+      "timestamp_s": 0.533,
+      "event_type": "approach",
+      "object_center_px": [
+        1059.1,
+        302.5
+      ],
+      "object_center_norm": [
+        0.55163,
+        0.280118
+      ],
+      "hand_point_px": [
+        1260.8,
+        198.8
+      ],
+      "hand_point_norm": [
+        0.656642,
+        0.184094
+      ],
+      "hand_point_kind": "index_fingertip",
+      "hand_visibility": "visible",
+      "confidence": 0.9,
+      "annotation_source": "imported_canonical_object_only"
+    },
+    {
+      "timestamp_s": 1.033,
+      "event_type": "grasp",
+      "object_center_px": [
+        1040.9,
+        299.9
+      ],
+      "object_center_norm": [
+        0.54212,
+        0.277702
+      ],
+      "hand_point_px": [
+        1130.8,
+        280.6
+      ],
+      "hand_point_norm": [
+        0.588972,
+        0.259839
+      ],
+      "hand_point_kind": "index_fingertip",
+      "hand_visibility": "visible",
+      "confidence": 0.85,
+      "annotation_source": "imported_canonical_object_only"
+    },
+    {
+      "timestamp_s": 1.492,
+      "event_type": "transport",
+      "object_center_px": [
+        1335.7,
+        356.4
+      ],
+      "object_center_norm": [
+        0.695652,
+        0.330037
+      ],
+      "hand_point_px": [
+        1467.7,
+        315.1
+      ],
+      "hand_point_norm": [
+        0.764411,
+        0.291771
+      ],
+      "hand_point_kind": "index_fingertip",
+      "hand_visibility": "visible",
+      "confidence": 0.85,
+      "annotation_source": "imported_canonical_object_only"
+    },
+    {
+      "timestamp_s": 2.759,
+      "event_type": "release",
+      "object_center_px": [
+        1620,
+        860.8
+      ],
+      "object_center_norm": [
+        0.84375,
+        0.797026
+      ],
+      "hand_point_px": null,
+      "hand_point_norm": null,
+      "hand_point_kind": null,
+      "hand_visibility": "uncertain",
+      "confidence": 0.7,
+      "annotation_source": "imported_canonical_object_only"
+    }
+  ]
+}

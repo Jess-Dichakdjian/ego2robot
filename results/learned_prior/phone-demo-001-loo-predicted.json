@@ -1,0 +1,90 @@
+{
+  "demo_id": "phone-demo-001",
+  "task": "pick up a small can and place it into an open container",
+  "coordinate_frame": "image_normalized",
+  "source": "phone_video_manual",
+  "schema_version": 1,
+  "metadata": {
+    "annotation_method": "manual_video_keyframes",
+    "coordinate_origin": "top_left",
+    "trajectory_prior": {
+      "type": "ridge residual predictor",
+      "evaluation": "leave-one-original-trial-out",
+      "training_excluded_trial": "phone-demo-001",
+      "alpha": 0.03,
+      "note": "Only intermediate coordinates were predicted; start/release endpoints and phase timestamps are retained from this held-out annotation."
+    }
+  },
+  "frames": [
+    {
+      "timestamp_s": 0,
+      "object_position": [
+        0.272365,
+        0.33139
+      ],
+      "ee_position": null,
+      "ee_orientation_xyzw": null,
+      "gripper_state": null,
+      "target_position": null,
+      "task_phase": "start",
+      "source": "phone_video_manual",
+      "confidence": 0.9
+    },
+    {
+      "timestamp_s": 0.505,
+      "object_position": [
+        0.26394060816330245,
+        0.3568206730589368
+      ],
+      "ee_position": null,
+      "ee_orientation_xyzw": null,
+      "gripper_state": null,
+      "target_position": null,
+      "task_phase": "approach",
+      "source": "phone_video_manual",
+      "confidence": 0.9
+    },
+    {
+      "timestamp_s": 1.772,
+      "object_position": [
+        0.3004326967382996,
+        0.3776314098097818
+      ],
+      "ee_position": null,
+      "ee_orientation_xyzw": null,
+      "gripper_state": null,
+      "target_position": null,
+      "task_phase": "grasp",
+      "source": "phone_video_manual",
+      "confidence": 0.7
+    },
+    {
+      "timestamp_s": 2.914,
+      "object_position": [
+        0.5848020972525385,
+        0.29359677636558623
+      ],
+      "ee_position": null,
+      "ee_orientation_xyzw": null,
+      "gripper_state": null,
+      "target_position": null,
+      "task_phase": "transport",
+      "source": "phone_video_manual",
+      "confidence": 0.8
+    },
+    {
+      "timestamp_s": 4.88,
+      "object_position": [
+        0.84375,
+        0.731809
+      ],
+      "ee_position": null,
+      "ee_orientation_xyzw": null,
+      "gripper_state": null,
+      "target_position": null,
+      "task_phase": "release",
+      "source": "phone_video_manual",
+      "confidence": 0.65
+    }
+  ]
+}

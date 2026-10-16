@@ -1,0 +1,31 @@
+{
+  "model": "ridge_approach_direction_v1",
+  "features": [
+    "object_progress_along_start_to_release",
+    "object_lateral_offset_normalized_by_route_length"
+  ],
+  "target": "unit_hand_point_minus_can_center_in_task_aligned_basis",
+  "feature_mean": [
+    0.0027897288637642004,
+    -0.002539379686018992
+  ],
+  "feature_scale": [
+    0.003243521256568534,
+    0.00580292916530598
+  ],
+  "target_mean": [
+    -0.11545659309025189,
+    0.9685845071454533
+  ],
+  "weights": [
+    [
+      -0.11966599715937562,
+      -0.017329443540047087
+    ],
+    [
+      -0.10752509349303607,
+      -0.01528916400452001
+    ]
+  ],
+  "alpha": 1.0
+}

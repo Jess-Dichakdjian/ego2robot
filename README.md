@@ -79,6 +79,16 @@ The episode-level metrics are in [`results/route_ablation.csv`](results/route_ab
 
 The older generic-controller baseline uses different control logic and is reported only as a historical reference, not as evidence that human routes improve performance. Its one fixed-state episode failed to place the can within 500 steps (final distance 0.513 m; path length 0.006 m; finger-pad contact was observed). The six fixed-state annotation runs above are also not a matched baseline comparison. See [`results/controller_comparison.md`](results/controller_comparison.md) and [`results/phone_demo_generalization.md`](results/phone_demo_generalization.md).
 
+## Research Extensions
+
+These optional studies are separate from the geometric MVP. The frozen `DemoConditionedPolicy` and successful MVP experiments are unchanged. Neither model is a successful learned manipulation policy.
+
+**Offline sparse-keypoint ridge regression.** A trial-level leave-one-out evaluation on 18 annotated trials from one recording session reduced mean intermediate keypoint error from **0.2034** normalized image units for straight interpolation to **0.0701** for ridge regression; ridge was lower-error on 18/18 held-out trials. This is a prediction result on sparse human labels, not continuous motion reconstruction, cross-session generalization, or a robot-performance gain. The script, fitted weights, per-trial and held-out predictions, annotations, and figure are included. It requires no source video.
+
+**Human hand-side approach regression.** This separate ridge model's held-out mean angular error was **18.30°**, worse than the constant-direction baseline (**15.57°**). With the same frozen controller and matched saved simulator states, the learned approach achieved **0/3 grasps**, versus **3/3** for both the scripted straight and human-geometric routes. The learned route changed robot motion but did not produce a successful grasp. The failed-run diagnostic is included with its model, interaction annotations, logs, metrics, and trajectories; it uses no private video. Replaying the simulator requires the pinned LIBERO environment in [`docs/setup.md`](docs/setup.md).
+
+The supplementary interaction exports have 28 hand points across 70 events; absent/occluded points remain missing. Their source metadata has a known stale label, recorded in the [audit](results/interaction_dataset_audit.json). No recovery behavior or learned policy was implemented. See [research methods and reproduction commands](docs/research_extensions.md) for detail.
+
 ## What worked and what did not
 
 - The frozen demo-informed controller completed the successful `phone_demo_001` sequence and all six previously recorded fixed-state demo runs.
@@ -103,7 +113,7 @@ To recreate the paired preview from local source footage, provide `--phone-video
 
 ## Scope and limits
 
-This is six personal demonstrations, five sparse 2D points per trial, one LIBERO task, and a hand-designed controller. Annotation timestamps and confidence scores are stored in the canonical JSON but are not used to schedule actions, weight waypoints, or otherwise change control. Recovery-event annotations are supplementary human data; they are not used as evidence of implemented or evaluated robotic recovery. No learned-policy training, RL, VLA fine-tuning, physical Panda evaluation, calibrated video-to-world transform, uncertainty estimate, or recovery behavior was implemented. The matched route ablation uses one demonstration and three saved initial states; it cannot establish broad generalization.
+The original geometric MVP is six demonstrations, one LIBERO task, and a hand-designed controller. The optional extension adds an offline keypoint predictor and a failed hand-approach experiment; it does not add a successful learned manipulation policy. Annotation timestamps and confidence scores are stored in the canonical JSON but are not used to schedule actions, weight waypoints, or otherwise change control. Recovery-event annotations are supplementary human data; they are not evidence of implemented or evaluated robotic recovery. No RL, VLA fine-tuning, physical Panda evaluation, calibrated video-to-world transform, or uncertainty estimate was implemented. The matched route ablations use a few saved simulator states and do not establish broad generalization.
 
 Future work could quantify uncertainty in clicks and retargeted waypoints, detect stalled execution, and request a human correction before continuing. That is a proposed extension, not a result of this project.
 

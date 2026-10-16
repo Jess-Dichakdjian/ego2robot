@@ -1,0 +1,35 @@
+{
+  "method": "ridge residual predictor; trial-level leave-one-out",
+  "annotated_trial_ids": 18,
+  "source_recording_sessions": 1,
+  "annotated_keypoints_per_trial": 5,
+  "training_samples_per_fold": 51,
+  "heldout_keypoints": 54,
+  "ridge_alpha_fixed": 0.03,
+  "inputs": [
+    "phase one-hot",
+    "normalized phase timestamp",
+    "start xy",
+    "endpoint displacement"
+  ],
+  "target": "observed intermediate normalized xy minus straight start-end interpolation",
+  "training_resubstitution_rmse_norm": 0.07777051914022722,
+  "loo_learned_mean_euclidean_error_norm": 0.07013166969712471,
+  "loo_learned_rmse_norm": 0.09103282772050232,
+  "loo_straight_mean_euclidean_error_norm": 0.20337724286483005,
+  "loo_straight_rmse_norm": 0.2303837765035399,
+  "paired_trial_mean_error_reduction_norm": 0.13324557316770536,
+  "paired_trial_bootstrap_95pct_ci_norm": [
+    0.10972710979414771,
+    0.155521123215459
+  ],
+  "trials_improved_vs_straight": 18,
+  "trials_equal_vs_straight": 0,
+  "trials_worse_vs_straight": 0,
+  "bootstrap_resampling_unit": "trial ID within one source recording session",
+  "bootstrap_replicates": 10000,
+  "bootstrap_seed": 20261016,
+  "confidence_used": false,
+  "raw_video_used_for_model": false,
+  "notes": "Each leave-one-out fold withholds one full trial clip. All clips were split from one concatenated source recording session; folds do not estimate cross-session generalization. Five sparse labels are not dense motion ground truth."
+}

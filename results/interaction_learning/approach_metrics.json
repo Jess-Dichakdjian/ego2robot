@@ -1,0 +1,45 @@
+{
+  "model": "ridge_approach_direction_v1",
+  "alpha": 1.0,
+  "split": "leave_one_demo_id_out; feature scaling and model fit use training trials only",
+  "training_samples": 5,
+  "unique_trial_groups": 5,
+  "trial_ids": [
+    "phone-demo-002",
+    "phone-demo-005",
+    "phone-demo-008",
+    "phone-demo-013",
+    "phone-demo-020"
+  ],
+  "features": [
+    "object_progress_along_start_to_release",
+    "object_lateral_offset_normalized_by_route_length"
+  ],
+  "target": "unit_hand_point_minus_can_center_in_task_aligned_basis",
+  "positive_example_filter": "approach hand points from trials without explicit failed_contact/push labels; failed first approaches are reserved for correction analysis",
+  "baselines": {
+    "constant_train_mean": "mean unit direction of training-trial approach labels",
+    "straight_from_start_side": "fixed hand-side vector opposite the can start-to-release axis"
+  },
+  "metrics": {
+    "ridge": {
+      "samples": 5,
+      "mean_angular_error_deg": 18.29866023924493,
+      "median_angular_error_deg": 19.16750677940841,
+      "mean_fixed_distance_waypoint_error_m": 0.02539276591049557
+    },
+    "constant_train_mean": {
+      "samples": 5,
+      "mean_angular_error_deg": 15.565903409121907,
+      "median_angular_error_deg": 15.115186797564345,
+      "mean_fixed_distance_waypoint_error_m": 0.021657126116353443
+    },
+    "straight_from_start_side": {
+      "samples": 5,
+      "mean_angular_error_deg": 83.160035976324,
+      "median_angular_error_deg": 92.60638361180372,
+      "mean_fixed_distance_waypoint_error_m": 0.10554293110040622
+    }
+  },
+  "interpretation_limit": "Offline human-data prediction only; not yet evidence of robot action or manipulation benefit."
+}

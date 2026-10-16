@@ -28,3 +28,6 @@ results/runs/*
 !results/runs/phone_demo_001_working_config.json
 !results/presentation/phone_demo_001_presentation.mp4
 work/
+
+# Reproduction commands write fresh local outputs here.
+results/reproduction/

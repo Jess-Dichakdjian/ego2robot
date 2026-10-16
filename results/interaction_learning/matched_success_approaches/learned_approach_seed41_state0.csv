@@ -1,0 +1,2 @@
+policy,seed,initial_state_id,object_offset_x_m,object_offset_y_m,initial_object_x_m,initial_object_y_m,initial_target_x_m,initial_target_y_m,success,episode_return,final_object_target_distance_m,object_trajectory_length_m,steps
+demo,41,0,0.0,0.0,-0.119094255744671,-0.23978121735096938,0.014835114894043312,0.25211744175080475,False,0.0,0.5169766057155862,0.031193195029951038,500

@@ -1,0 +1,151 @@
+{
+  "demo_id": "phone-demo-009",
+  "task": "pick up a small can and place it into an open container",
+  "coordinate_frame": "image_normalized",
+  "source": "phone_video_manual",
+  "schema_version": 1,
+  "metadata": {
+    "annotation_method": "manual_video_keyframes",
+    "coordinate_origin": "top_left",
+    "annotation_mode": "recovery_events",
+    "frame_size_px": [
+      1920,
+      1080
+    ]
+  },
+  "frames": [
+    {
+      "timestamp_s": 0.033,
+      "object_position": [
+        0.620178,
+        0.440625
+      ],
+      "ee_position": null,
+      "ee_orientation_xyzw": null,
+      "gripper_state": null,
+      "target_position": null,
+      "task_phase": "start",
+      "source": "phone_video_manual",
+      "confidence": 0.9,
+      "event_type": "start",
+      "object_position_px": [
+        1191,
+        476
+      ]
+    },
+    {
+      "timestamp_s": 0.567,
+      "object_position": [
+        0.618694,
+        0.448538
+      ],
+      "ee_position": null,
+      "ee_orientation_xyzw": null,
+      "gripper_state": null,
+      "target_position": null,
+      "task_phase": "approach",
+      "source": "phone_video_manual",
+      "confidence": 0.9,
+      "event_type": "approach",
+      "object_position_px": [
+        1188,
+        484
+      ]
+    },
+    {
+      "timestamp_s": 0.7,
+      "object_position": [
+        0.620178,
+        0.448538
+      ],
+      "ee_position": null,
+      "ee_orientation_xyzw": null,
+      "gripper_state": null,
+      "target_position": null,
+      "task_phase": "failed_contact/push",
+      "source": "phone_video_manual",
+      "confidence": 0.9,
+      "event_type": "failed_contact/push",
+      "object_position_px": [
+        1191,
+        484
+      ]
+    },
+    {
+      "timestamp_s": 1.133,
+      "object_position": [
+        0.609792,
+        0.588334
+      ],
+      "ee_position": null,
+      "ee_orientation_xyzw": null,
+      "gripper_state": null,
+      "target_position": null,
+      "task_phase": "realign",
+      "source": "phone_video_manual",
+      "confidence": 0.9,
+      "event_type": "realign",
+      "object_position_px": [
+        1171,
+        635
+      ]
+    },
+    {
+      "timestamp_s": 2.467,
+      "object_position": [
+        0.602374,
+        0.625261
+      ],
+      "ee_position": null,
+      "ee_orientation_xyzw": null,
+      "gripper_state": null,
+      "target_position": null,
+      "task_phase": "grasp",
+      "source": "phone_video_manual",
+      "confidence": 0.8,
+      "event_type": "grasp",
+      "object_position_px": [
+        1157,
+        675
+      ]
+    },
+    {
+      "timestamp_s": 4.167,
+      "object_position": [
+        0.839763,
+        0.335998
+      ],
+      "ee_position": null,
+      "ee_orientation_xyzw": null,
+      "gripper_state": null,
+      "target_position": null,
+      "task_phase": "transport",
+      "source": "phone_video_manual",
+      "confidence": 0.8,
+      "event_type": "transport",
+      "object_position_px": [
+        1612,
+        363
+      ]
+    },
+    {
+      "timestamp_s": 5.067,
+      "object_position": [
+        0.845697,
+        0.805501
+      ],
+      "ee_position": null,
+      "ee_orientation_xyzw": null,
+      "gripper_state": null,
+      "target_position": null,
+      "task_phase": "release",
+      "source": "phone_video_manual",
+      "confidence": 0.65,
+      "event_type": "release",
+      "object_position_px": [
+        1624,
+        870
+      ]
+    }
+  ]
+}

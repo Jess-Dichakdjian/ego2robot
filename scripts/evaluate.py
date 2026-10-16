@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import json
 from pathlib import Path
 import sys
 
@@ -13,8 +14,10 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from ego2robot.demos.io import read_demo
+from ego2robot.demos.approach_model import RidgeApproachModel
 from ego2robot.evaluation.metrics import measure_episode
 from ego2robot.policies import DemoConditionedPolicy, PickPlacePolicy
+from ego2robot.policies.interaction_approach import apply_interaction_approach_prior
 from ego2robot.retargeting import SimpleGeometricRetargeter
 from ego2robot.simulation import LiberoAdapter
 
@@ -24,6 +27,11 @@ def main() -> None:
     parser.add_argument("--policy", choices=("baseline", "demo"), default="baseline")
     parser.add_argument("--task-id", type=int, default=0)
     parser.add_argument("--demo-json", type=Path)
+    parser.add_argument(
+        "--interaction-approach-model",
+        type=Path,
+        help="Experimental human-interaction ridge model; changes only approach direction",
+    )
     parser.add_argument("--episodes", type=int, default=1)
     parser.add_argument("--max-steps", type=int, default=500)
     parser.add_argument("--settle-steps", type=int, default=10)
@@ -70,8 +78,18 @@ def main() -> None:
         )
     if args.policy == "demo" and args.demo_json is None:
         parser.error("--demo-json is required for --policy demo")
+    if args.interaction_approach_model is not None and args.policy != "demo":
+        parser.error("--interaction-approach-model requires --policy demo")
 
     canonical_demo = read_demo(args.demo_json) if args.demo_json else None
+    approach_model = None
+    if args.interaction_approach_model is not None:
+        model_path = args.interaction_approach_model
+        if not model_path.is_absolute():
+            model_path = REPO_ROOT / model_path
+        approach_model = RidgeApproachModel.from_dict(
+            json.loads(model_path.read_text(encoding="utf-8"))
+        )
     if args.task_id < 0 or args.task_id >= 10:
         parser.error("--task-id must be in the range 0..9 for libero_object")
     adapter = LiberoAdapter(task_id=args.task_id, camera_size=256 if args.video or args.debug_video else 64)
@@ -129,6 +147,18 @@ def main() -> None:
                 policy = DemoConditionedPolicy(
                     robot_demo, object_key=object_key, target_key="basket_1_pos"
                 )
+                if approach_model is not None:
+                    prior_log = apply_interaction_approach_prior(
+                        policy,
+                        approach_model,
+                        tuple(np.asarray(observation[object_key], dtype=float)),
+                        tuple(np.asarray(observation["basket_1_pos"], dtype=float)),
+                    )
+                    print(
+                        "interaction_approach_prior "
+                        + json.dumps(prior_log, sort_keys=True),
+                        flush=True,
+                    )
             policy.reset()
             if args.trace_gripper:
                 sim = adapter.env.env.sim

@@ -1,0 +1,875 @@
+{
+  "interaction_file_count": 12,
+  "valid_trial_count": 12,
+  "event_count": 70,
+  "hand_landmark_count": 28,
+  "valid_hand_to_can_displacement_count": 28,
+  "canonical_event_matches": 70,
+  "visibility_counts": {
+    "uncertain": 42,
+    "visible": 28
+  },
+  "landmark_kind_counts": {
+    "index_fingertip": 26,
+    "other_fingertip": 2
+  },
+  "annotation_source_counts": {
+    "imported_canonical_object_only": 70
+  },
+  "hand_point_source_metadata_stale_count": 28,
+  "exact_duplicate_hand_object_event_count": 0,
+  "event_type_counts": {
+    "uncertain_event": 12,
+    "approach": 13,
+    "grasp": 15,
+    "transport": 12,
+    "release": 12,
+    "failed_contact/push": 3,
+    "realign": 3
+  },
+  "hand_point_event_type_counts": {
+    "approach": 7,
+    "grasp": 6,
+    "transport": 10,
+    "failed_contact/push": 2,
+    "realign": 1,
+    "release": 2
+  },
+  "confidence_range": [
+    0.6,
+    0.9
+  ],
+  "video_dimensions_seen": [
+    [
+      1920,
+      1080
+    ]
+  ],
+  "recovery_trials_with_failure_and_realign_labels": [
+    "phone-demo-009",
+    "phone-demo-010",
+    "phone-demo-011"
+  ],
+  "split_unit": "demo_id/trial; never split events from the same clip across train and test",
+  "recording_session_note": "All provided clips belong to the same original concatenated recording session.",
+  "trials": [
+    {
+      "demo_id": "phone-demo-002",
+      "video_filename": "trial_02.mp4",
+      "video_exists": true,
+      "video_metadata": {
+        "width_px": 1920,
+        "height_px": 1080,
+        "fps": 60.0,
+        "frame_count": 246
+      },
+      "event_count": 5,
+      "hand_point_count": 3,
+      "missing_hand_count": 2,
+      "canonical_timestamp_and_can_matches": 5,
+      "canonical_event_labels": [
+        "uncertain_event",
+        "approach",
+        "grasp",
+        "transport",
+        "release"
+      ],
+      "event_type_counts": {
+        "uncertain_event": 1,
+        "approach": 1,
+        "grasp": 1,
+        "transport": 1,
+        "release": 1
+      },
+      "hand_landmark_kinds": {
+        "index_fingertip": 3
+      },
+      "hand_to_can_vectors": [
+        {
+          "timestamp_s": 0.533,
+          "event_type": "approach",
+          "hand_point_kind": "index_fingertip",
+          "hand_to_object_px": [
+            201.7,
+            -103.7
+          ],
+          "hand_to_object_norm": [
+            0.105052,
+            -0.096019
+          ],
+          "confidence": 0.9
+        },
+        {
+          "timestamp_s": 1.033,
+          "event_type": "grasp",
+          "hand_point_kind": "index_fingertip",
+          "hand_to_object_px": [
+            89.9,
+            -19.3
+          ],
+          "hand_to_object_norm": [
+            0.046823,
+            -0.01787
+          ],
+          "confidence": 0.85
+        },
+        {
+          "timestamp_s": 1.492,
+          "event_type": "transport",
+          "hand_point_kind": "index_fingertip",
+          "hand_to_object_px": [
+            132.0,
+            -41.3
+          ],
+          "hand_to_object_norm": [
+            0.06875,
+            -0.038241
+          ],
+          "confidence": 0.85
+        }
+      ]
+    },
+    {
+      "demo_id": "phone-demo-005",
+      "video_filename": "trial_05.mp4",
+      "video_exists": true,
+      "video_metadata": {
+        "width_px": 1920,
+        "height_px": 1080,
+        "fps": 60.0,
+        "frame_count": 248
+      },
+      "event_count": 5,
+      "hand_point_count": 2,
+      "missing_hand_count": 3,
+      "canonical_timestamp_and_can_matches": 5,
+      "canonical_event_labels": [
+        "uncertain_event",
+        "approach",
+        "grasp",
+        "transport",
+        "release"
+      ],
+      "event_type_counts": {
+        "uncertain_event": 1,
+        "approach": 1,
+        "grasp": 1,
+        "transport": 1,
+        "release": 1
+      },
+      "hand_landmark_kinds": {
+        "index_fingertip": 2
+      },
+      "hand_to_can_vectors": [
+        {
+          "timestamp_s": 0.733,
+          "event_type": "approach",
+          "hand_point_kind": "index_fingertip",
+          "hand_to_object_px": [
+            171.8,
+            -57.6
+          ],
+          "hand_to_object_norm": [
+            0.089479,
+            -0.053333
+          ],
+          "confidence": 0.9
+        },
+        {
+          "timestamp_s": 1.367,
+          "event_type": "grasp",
+          "hand_point_kind": "index_fingertip",
+          "hand_to_object_px": [
+            99.4,
+            -23.6
+          ],
+          "hand_to_object_norm": [
+            0.051771,
+            -0.021852
+          ],
+          "confidence": 0.8
+        }
+      ]
+    },
+    {
+      "demo_id": "phone-demo-008",
+      "video_filename": "trial_08.mp4",
+      "video_exists": true,
+      "video_metadata": {
+        "width_px": 1920,
+        "height_px": 1080,
+        "fps": 60.0,
+        "frame_count": 382
+      },
+      "event_count": 9,
+      "hand_point_count": 2,
+      "missing_hand_count": 7,
+      "canonical_timestamp_and_can_matches": 9,
+      "canonical_event_labels": [
+        "uncertain_event",
+        "approach",
+        "grasp",
+        "grasp",
+        "grasp",
+        "approach",
+        "grasp",
+        "transport",
+        "release"
+      ],
+      "event_type_counts": {
+        "uncertain_event": 1,
+        "approach": 2,
+        "grasp": 4,
+        "transport": 1,
+        "release": 1
+      },
+      "hand_landmark_kinds": {
+        "index_fingertip": 2
+      },
+      "hand_to_can_vectors": [
+        {
+          "timestamp_s": 0.4,
+          "event_type": "approach",
+          "hand_point_kind": "index_fingertip",
+          "hand_to_object_px": [
+            218.9,
+            -153.8
+          ],
+          "hand_to_object_norm": [
+            0.11401,
+            -0.142407
+          ],
+          "confidence": 0.9
+        },
+        {
+          "timestamp_s": 1.3,
+          "event_type": "grasp",
+          "hand_point_kind": "index_fingertip",
+          "hand_to_object_px": [
+            151.2,
+            -199.9
+          ],
+          "hand_to_object_norm": [
+            0.07875,
+            -0.185093
+          ],
+          "confidence": 0.85
+        }
+      ]
+    },
+    {
+      "demo_id": "phone-demo-009",
+      "video_filename": "trial_09.mp4",
+      "video_exists": true,
+      "video_metadata": {
+        "width_px": 1920,
+        "height_px": 1080,
+        "fps": 60.0,
+        "frame_count": 355
+      },
+      "event_count": 7,
+      "hand_point_count": 1,
+      "missing_hand_count": 6,
+      "canonical_timestamp_and_can_matches": 7,
+      "canonical_event_labels": [
+        "uncertain_event",
+        "approach",
+        "failed_contact/push",
+        "realign",
+        "grasp",
+        "transport",
+        "release"
+      ],
+      "event_type_counts": {
+        "uncertain_event": 1,
+        "approach": 1,
+        "failed_contact/push": 1,
+        "realign": 1,
+        "grasp": 1,
+        "transport": 1,
+        "release": 1
+      },
+      "hand_landmark_kinds": {
+        "index_fingertip": 1
+      },
+      "hand_to_can_vectors": [
+        {
+          "timestamp_s": 4.167,
+          "event_type": "transport",
+          "hand_point_kind": "index_fingertip",
+          "hand_to_object_px": [
+            194.6,
+            -59.8
+          ],
+          "hand_to_object_norm": [
+            0.101354,
+            -0.05537
+          ],
+          "confidence": 0.8
+        }
+      ]
+    },
+    {
+      "demo_id": "phone-demo-010",
+      "video_filename": "trial_10.mp4",
+      "video_exists": true,
+      "video_metadata": {
+        "width_px": 1920,
+        "height_px": 1080,
+        "fps": 60.0,
+        "frame_count": 224
+      },
+      "event_count": 7,
+      "hand_point_count": 4,
+      "missing_hand_count": 3,
+      "canonical_timestamp_and_can_matches": 7,
+      "canonical_event_labels": [
+        "uncertain_event",
+        "approach",
+        "failed_contact/push",
+        "realign",
+        "grasp",
+        "transport",
+        "release"
+      ],
+      "event_type_counts": {
+        "uncertain_event": 1,
+        "approach": 1,
+        "failed_contact/push": 1,
+        "realign": 1,
+        "grasp": 1,
+        "transport": 1,
+        "release": 1
+      },
+      "hand_landmark_kinds": {
+        "index_fingertip": 4
+      },
+      "hand_to_can_vectors": [
+        {
+          "timestamp_s": 0.4,
+          "event_type": "approach",
+          "hand_point_kind": "index_fingertip",
+          "hand_to_object_px": [
+            286.0,
+            -131.8
+          ],
+          "hand_to_object_norm": [
+            0.148958,
+            -0.122037
+          ],
+          "confidence": 0.9
+        },
+        {
+          "timestamp_s": 0.5,
+          "event_type": "failed_contact/push",
+          "hand_point_kind": "index_fingertip",
+          "hand_to_object_px": [
+            218.7,
+            -50.7
+          ],
+          "hand_to_object_norm": [
+            0.113906,
+            -0.046944
+          ],
+          "confidence": 0.9
+        },
+        {
+          "timestamp_s": 0.733,
+          "event_type": "realign",
+          "hand_point_kind": "index_fingertip",
+          "hand_to_object_px": [
+            187.4,
+            -55.1
+          ],
+          "hand_to_object_norm": [
+            0.097604,
+            -0.051019
+          ],
+          "confidence": 0.9
+        },
+        {
+          "timestamp_s": 2.6,
+          "event_type": "transport",
+          "hand_point_kind": "index_fingertip",
+          "hand_to_object_px": [
+            152.6,
+            -34.6
+          ],
+          "hand_to_object_norm": [
+            0.079479,
+            -0.032037
+          ],
+          "confidence": 0.8
+        }
+      ]
+    },
+    {
+      "demo_id": "phone-demo-011",
+      "video_filename": "trial_11.mp4",
+      "video_exists": true,
+      "video_metadata": {
+        "width_px": 1920,
+        "height_px": 1080,
+        "fps": 60.0,
+        "frame_count": 334
+      },
+      "event_count": 7,
+      "hand_point_count": 3,
+      "missing_hand_count": 4,
+      "canonical_timestamp_and_can_matches": 7,
+      "canonical_event_labels": [
+        "uncertain_event",
+        "approach",
+        "failed_contact/push",
+        "realign",
+        "grasp",
+        "transport",
+        "release"
+      ],
+      "event_type_counts": {
+        "uncertain_event": 1,
+        "approach": 1,
+        "failed_contact/push": 1,
+        "realign": 1,
+        "grasp": 1,
+        "transport": 1,
+        "release": 1
+      },
+      "hand_landmark_kinds": {
+        "index_fingertip": 3
+      },
+      "hand_to_can_vectors": [
+        {
+          "timestamp_s": 0.4,
+          "event_type": "approach",
+          "hand_point_kind": "index_fingertip",
+          "hand_to_object_px": [
+            234.1,
+            -123.4
+          ],
+          "hand_to_object_norm": [
+            0.121927,
+            -0.114259
+          ],
+          "confidence": 0.9
+        },
+        {
+          "timestamp_s": 0.533,
+          "event_type": "failed_contact/push",
+          "hand_point_kind": "index_fingertip",
+          "hand_to_object_px": [
+            185.9,
+            -70.4
+          ],
+          "hand_to_object_norm": [
+            0.096823,
+            -0.065185
+          ],
+          "confidence": 0.9
+        },
+        {
+          "timestamp_s": 3.967,
+          "event_type": "transport",
+          "hand_point_kind": "index_fingertip",
+          "hand_to_object_px": [
+            153.7,
+            -60.2
+          ],
+          "hand_to_object_norm": [
+            0.080052,
+            -0.055741
+          ],
+          "confidence": 0.8
+        }
+      ]
+    },
+    {
+      "demo_id": "phone-demo-013",
+      "video_filename": "trial_13.mp4",
+      "video_exists": true,
+      "video_metadata": {
+        "width_px": 1920,
+        "height_px": 1080,
+        "fps": 60.0,
+        "frame_count": 230
+      },
+      "event_count": 5,
+      "hand_point_count": 3,
+      "missing_hand_count": 2,
+      "canonical_timestamp_and_can_matches": 5,
+      "canonical_event_labels": [
+        "uncertain_event",
+        "approach",
+        "grasp",
+        "transport",
+        "release"
+      ],
+      "event_type_counts": {
+        "uncertain_event": 1,
+        "approach": 1,
+        "grasp": 1,
+        "transport": 1,
+        "release": 1
+      },
+      "hand_landmark_kinds": {
+        "index_fingertip": 3
+      },
+      "hand_to_can_vectors": [
+        {
+          "timestamp_s": 0.667,
+          "event_type": "approach",
+          "hand_point_kind": "index_fingertip",
+          "hand_to_object_px": [
+            196.3,
+            -183.4
+          ],
+          "hand_to_object_norm": [
+            0.10224,
+            -0.169815
+          ],
+          "confidence": 0.9
+        },
+        {
+          "timestamp_s": 1.267,
+          "event_type": "grasp",
+          "hand_point_kind": "index_fingertip",
+          "hand_to_object_px": [
+            54.6,
+            -21.9
+          ],
+          "hand_to_object_norm": [
+            0.028438,
+            -0.020278
+          ],
+          "confidence": 0.75
+        },
+        {
+          "timestamp_s": 1.933,
+          "event_type": "transport",
+          "hand_point_kind": "index_fingertip",
+          "hand_to_object_px": [
+            101.1,
+            -49.4
+          ],
+          "hand_to_object_norm": [
+            0.052656,
+            -0.045741
+          ],
+          "confidence": 0.8
+        }
+      ]
+    },
+    {
+      "demo_id": "phone-demo-015",
+      "video_filename": "trial_15.mp4",
+      "video_exists": true,
+      "video_metadata": {
+        "width_px": 1920,
+        "height_px": 1080,
+        "fps": 60.0,
+        "frame_count": 173
+      },
+      "event_count": 5,
+      "hand_point_count": 1,
+      "missing_hand_count": 4,
+      "canonical_timestamp_and_can_matches": 5,
+      "canonical_event_labels": [
+        "uncertain_event",
+        "approach",
+        "grasp",
+        "transport",
+        "release"
+      ],
+      "event_type_counts": {
+        "uncertain_event": 1,
+        "approach": 1,
+        "grasp": 1,
+        "transport": 1,
+        "release": 1
+      },
+      "hand_landmark_kinds": {
+        "index_fingertip": 1
+      },
+      "hand_to_can_vectors": [
+        {
+          "timestamp_s": 1.967,
+          "event_type": "transport",
+          "hand_point_kind": "index_fingertip",
+          "hand_to_object_px": [
+            182.1,
+            -70.2
+          ],
+          "hand_to_object_norm": [
+            0.094844,
+            -0.065
+          ],
+          "confidence": 0.8
+        }
+      ]
+    },
+    {
+      "demo_id": "phone-demo-018",
+      "video_filename": "trial_18.mp4",
+      "video_exists": true,
+      "video_metadata": {
+        "width_px": 1920,
+        "height_px": 1080,
+        "fps": 60.0,
+        "frame_count": 239
+      },
+      "event_count": 5,
+      "hand_point_count": 2,
+      "missing_hand_count": 3,
+      "canonical_timestamp_and_can_matches": 5,
+      "canonical_event_labels": [
+        "uncertain_event",
+        "approach",
+        "grasp",
+        "transport",
+        "release"
+      ],
+      "event_type_counts": {
+        "uncertain_event": 1,
+        "approach": 1,
+        "grasp": 1,
+        "transport": 1,
+        "release": 1
+      },
+      "hand_landmark_kinds": {
+        "index_fingertip": 2
+      },
+      "hand_to_can_vectors": [
+        {
+          "timestamp_s": 2.567,
+          "event_type": "transport",
+          "hand_point_kind": "index_fingertip",
+          "hand_to_object_px": [
+            189.9,
+            -34.0
+          ],
+          "hand_to_object_norm": [
+            0.098906,
+            -0.031481
+          ],
+          "confidence": 0.75
+        },
+        {
+          "timestamp_s": 3.567,
+          "event_type": "release",
+          "hand_point_kind": "index_fingertip",
+          "hand_to_object_px": [
+            241.0,
+            -73.5
+          ],
+          "hand_to_object_norm": [
+            0.125521,
+            -0.068056
+          ],
+          "confidence": 0.7
+        }
+      ]
+    },
+    {
+      "demo_id": "phone-demo-019",
+      "video_filename": "trial_19.mp4",
+      "video_exists": true,
+      "video_metadata": {
+        "width_px": 1920,
+        "height_px": 1080,
+        "fps": 60.0,
+        "frame_count": 182
+      },
+      "event_count": 5,
+      "hand_point_count": 2,
+      "missing_hand_count": 3,
+      "canonical_timestamp_and_can_matches": 5,
+      "canonical_event_labels": [
+        "uncertain_event",
+        "approach",
+        "grasp",
+        "transport",
+        "release"
+      ],
+      "event_type_counts": {
+        "uncertain_event": 1,
+        "approach": 1,
+        "grasp": 1,
+        "transport": 1,
+        "release": 1
+      },
+      "hand_landmark_kinds": {
+        "index_fingertip": 2
+      },
+      "hand_to_can_vectors": [
+        {
+          "timestamp_s": 0.7,
+          "event_type": "grasp",
+          "hand_point_kind": "index_fingertip",
+          "hand_to_object_px": [
+            120.5,
+            -51.8
+          ],
+          "hand_to_object_norm": [
+            0.06276,
+            -0.047963
+          ],
+          "confidence": 0.85
+        },
+        {
+          "timestamp_s": 1.033,
+          "event_type": "transport",
+          "hand_point_kind": "index_fingertip",
+          "hand_to_object_px": [
+            137.4,
+            -91.2
+          ],
+          "hand_to_object_norm": [
+            0.071563,
+            -0.084444
+          ],
+          "confidence": 0.85
+        }
+      ]
+    },
+    {
+      "demo_id": "phone-demo-020",
+      "video_filename": "trial_20.mp4",
+      "video_exists": true,
+      "video_metadata": {
+        "width_px": 1920,
+        "height_px": 1080,
+        "fps": 60.0,
+        "frame_count": 187
+      },
+      "event_count": 5,
+      "hand_point_count": 4,
+      "missing_hand_count": 1,
+      "canonical_timestamp_and_can_matches": 5,
+      "canonical_event_labels": [
+        "uncertain_event",
+        "approach",
+        "grasp",
+        "transport",
+        "release"
+      ],
+      "event_type_counts": {
+        "uncertain_event": 1,
+        "approach": 1,
+        "grasp": 1,
+        "transport": 1,
+        "release": 1
+      },
+      "hand_landmark_kinds": {
+        "index_fingertip": 3,
+        "other_fingertip": 1
+      },
+      "hand_to_can_vectors": [
+        {
+          "timestamp_s": 0.533,
+          "event_type": "approach",
+          "hand_point_kind": "index_fingertip",
+          "hand_to_object_px": [
+            150.3,
+            -208.2
+          ],
+          "hand_to_object_norm": [
+            0.078281,
+            -0.192778
+          ],
+          "confidence": 0.85
+        },
+        {
+          "timestamp_s": 1.0,
+          "event_type": "grasp",
+          "hand_point_kind": "index_fingertip",
+          "hand_to_object_px": [
+            142.8,
+            -91.0
+          ],
+          "hand_to_object_norm": [
+            0.074375,
+            -0.084259
+          ],
+          "confidence": 0.8
+        },
+        {
+          "timestamp_s": 1.467,
+          "event_type": "transport",
+          "hand_point_kind": "index_fingertip",
+          "hand_to_object_px": [
+            233.9,
+            -134.7
+          ],
+          "hand_to_object_norm": [
+            0.121823,
+            -0.124722
+          ],
+          "confidence": 0.7
+        },
+        {
+          "timestamp_s": 2.567,
+          "event_type": "release",
+          "hand_point_kind": "other_fingertip",
+          "hand_to_object_px": [
+            -138.0,
+            -166.4
+          ],
+          "hand_to_object_norm": [
+            -0.071875,
+            -0.154074
+          ],
+          "confidence": 0.7
+        }
+      ]
+    },
+    {
+      "demo_id": "phone-demo-022",
+      "video_filename": "trial_22.mp4",
+      "video_exists": true,
+      "video_metadata": {
+        "width_px": 1920,
+        "height_px": 1080,
+        "fps": 60.0,
+        "frame_count": 201
+      },
+      "event_count": 5,
+      "hand_point_count": 1,
+      "missing_hand_count": 4,
+      "canonical_timestamp_and_can_matches": 5,
+      "canonical_event_labels": [
+        "uncertain_event",
+        "approach",
+        "grasp",
+        "transport",
+        "release"
+      ],
+      "event_type_counts": {
+        "uncertain_event": 1,
+        "approach": 1,
+        "grasp": 1,
+        "transport": 1,
+        "release": 1
+      },
+      "hand_landmark_kinds": {
+        "other_fingertip": 1
+      },
+      "hand_to_can_vectors": [
+        {
+          "timestamp_s": 2.033,
+          "event_type": "transport",
+          "hand_point_kind": "other_fingertip",
+          "hand_to_object_px": [
+            75.3,
+            -4.6
+          ],
+          "hand_to_object_norm": [
+            0.039219,
+            -0.004259
+          ],
+          "confidence": 0.7
+        }
+      ]
+    }
+  ],
+  "issues": []
+}
