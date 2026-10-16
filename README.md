@@ -79,7 +79,13 @@ The episode-level metrics are in [`results/route_ablation.csv`](results/route_ab
 
 The older generic-controller baseline uses different control logic and is reported only as a historical reference, not as evidence that human routes improve performance. Its one fixed-state episode failed to place the can within 500 steps (final distance 0.513 m; path length 0.006 m; finger-pad contact was observed). The six fixed-state annotation runs above are also not a matched baseline comparison. See [`results/controller_comparison.md`](results/controller_comparison.md) and [`results/phone_demo_generalization.md`](results/phone_demo_generalization.md).
 
-## Research Extensions
+## Research Extension: Learning from Sparse Human Demonstrations
+
+Beyond the geometric baseline, I tested whether sparse human annotations could support learned robot behaviour. Offline ridge regression reduced held-out can-centre trajectory prediction error from **0.2034** to **0.0701** in the evaluated setting. A separate hand-informed approach predictor did not transfer successfully to grasping: it completed **0/3** matched trials, compared with **3/3** for both geometric baselines.
+
+The failure analysis pointed to unsuitable approach geometry and incomplete gripper alignment when transferring uncalibrated image-space motion to robot grasp configurations. The working geometric controller remains unchanged. This offline prediction improvement did not produce a downstream manipulation improvement; full methods, evaluation details, and limitations are documented in [Research Extension Details](docs/research_extensions.md) and the [paired failure diagnostic](docs/learned_grasp_failure_diagnostic.md).
+
+## Research Extension Details
 
 These optional studies are separate from the geometric MVP. The frozen `DemoConditionedPolicy` and successful MVP experiments are unchanged. Neither model is a successful learned manipulation policy.
 
@@ -116,6 +122,10 @@ To recreate the paired preview from local source footage, provide `--phone-video
 The original geometric MVP is six demonstrations, one LIBERO task, and a hand-designed controller. The optional extension adds an offline keypoint predictor and a failed hand-approach experiment; it does not add a successful learned manipulation policy. Annotation timestamps and confidence scores are stored in the canonical JSON but are not used to schedule actions, weight waypoints, or otherwise change control. Recovery-event annotations are supplementary human data; they are not evidence of implemented or evaluated robotic recovery. No RL, VLA fine-tuning, physical Panda evaluation, calibrated video-to-world transform, or uncertainty estimate was implemented. The matched route ablations use a few saved simulator states and do not establish broad generalization.
 
 Future work could quantify uncertainty in clicks and retargeted waypoints, detect stalled execution, and request a human correction before continuing. That is a proposed extension, not a result of this project.
+
+## A Note on Scope
+
+In roughly 24 hours, I took Ego2Robot from phone-recorded demonstrations to a working, evaluated LIBERO manipulation simulation. I chose to complete a reproducible experiment rather than start a larger model I could not validate. With more time, I would explore learning from human corrections so a robot can recover from failed grasps. There is much more I want to investigate from this starting point; I would welcome the chance to show what I can build with more time and a harder problem.
 
 ## License and data
 
