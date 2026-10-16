@@ -1,5 +1,7 @@
 # Ego2Robot
 
+[![Python tests](https://github.com/Jess-Dichakdjian/ego2robot/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/Jess-Dichakdjian/ego2robot/actions/workflows/tests.yml)
+
 **Can sparse points from a phone-recorded pick-and-place demonstration change a simulated Panda's route?** Ego2Robot tests this with a fixed, hand-coded controller in LIBERO. Human annotations provide a route prior; simulator state anchors metric placement.
 
 <p align="center">
@@ -7,6 +9,16 @@
 </p>
 
 Phone trial 01 is shown beside the corresponding Panda run using the original, unblurred phone footage. The clips are not synchronized or geometrically calibrated.
+
+## At a glance
+
+- **Problem and working system:** pick up a can and place it in a basket with a LIBERO Panda; retarget sparse can-centre clicks from phone video into its route. The fixed geometric controller completed the six original demo runs; simulator ground truth supplies metric can/basket poses.
+- **Data:** 22 canonical annotated trials and 12 supplementary interaction exports with 28 manual hand points, all from one recording session ([canonical JSONs](data/processed/) · [interaction exports](data/interaction_annotations/)). The six MVP runs use one simulator state; the matched route comparison uses three states.
+- **What changes the robot:** human points shape relative XY route and initial approach direction. Hand-coded logic supplies offsets, phase transitions, grasp/release schedule, and control; timestamps/confidence are stored but do not drive actions.
+- **Matched route comparison:** human, straight, and shuffled routes each succeeded in 3/3 saved states; the human route did not improve success or placement over straight. [Executed trajectories and route metrics](results/presentation/eef_trajectory_overlay.svg) · [CSV](results/route_ablation.csv).
+- **Offline learning:** trial-held-out sparse-keypoint error fell from 0.2034 to 0.0701 normalized image units over 18 trials. This is offline prediction, not a learned manipulation policy. [Experiment details](docs/research_extensions.md#offline-trajectory-keypoint-prediction) · [summary](results/learned_prior/summary.json) · [saved model](results/learned_prior/model.json).
+- **What failed:** the separate learned hand-approach experiment scored worse than its constant-direction baseline and achieved 0/3 grasps versus 3/3 for each geometric route. Its target left one-finger contact and did not reach the controller's close tolerance. [Experiment](docs/interaction_approach_experiment.md) · [failure diagnostic](docs/learned_grasp_failure_diagnostic.md) · [approach model](results/interaction_learning/approach_model.json).
+- **Inspect the work:** [side-by-side preview](results/presentation/phone_panda_demo_original.gif) · [geometric controller](src/ego2robot/policies/pick_place.py) · [retargeter](src/ego2robot/retargeting/simple_geometric.py) · [full methods and limits](docs/research_extensions.md) · [reproduction steps](#reproduce) · [pinned simulator setup](docs/setup.md) · [successful Panda video](results/runs/phone_demo_001_success.mp4).
 
 ## Pipeline
 
@@ -94,13 +106,48 @@ A distinct hand-informed approach predictor had **18.30°** held-out angular err
 
 ## Reproduce
 
-Follow [`docs/setup.md`](docs/setup.md) to install the pinned LIBERO environment. From the repository root:
+The package requires Python **3.10 or newer**. The checks have different dependency needs.
+
+### A. Unit tests — no simulator
+
+From the repository root, install the small package and run the suite:
 
 ```bash
+python -m pip install -e .
 python -m unittest discover -s tests -v
-python scripts/validate_demo.py data/processed/phone-demo-001.json
-python scripts/evaluate.py --policy demo --demo-json data/processed/phone-demo-001.json --seed 0 --initial-state-id 0 --max-steps 500 --settle-steps 10 --post-release-steps 20
-python scripts/evaluate_route_ablation.py --seeds 0 --initial-states 0 1 2
+```
+
+### B. Offline learning and data audit — no source videos or LIBERO
+
+The editable install above includes NumPy, which is sufficient for these commands. Outputs go under the ignored `results/reproduction/` directory.
+
+```bash
+python scripts/train_trajectory_prior.py --data-root data/processed --out results/reproduction/learned_prior
+python scripts/audit_interaction_dataset.py --interaction-dir data/interaction_annotations --canonical-dir data/processed --output results/reproduction/interaction_audit.json
+python scripts/train_interaction_approach.py --interaction-dir data/interaction_annotations --canonical-dir data/processed --output-dir results/reproduction/interaction_learning
+```
+
+### C. Panda simulation replay — pinned LIBERO environment required
+
+The simulator is **not** installed by `pip install -e .`. To preserve the committed metrics and figures, clone the repository, set `PROJECT_ROOT` to that clone, and complete the pinned WSL/LIBERO, PyTorch, Robosuite, and MuJoCo setup in [`docs/setup.md`](docs/setup.md). Then run the replay from the documented WSL virtual environment:
+
+```bash
+git clone https://github.com/Jess-Dichakdjian/ego2robot.git ego2robot-replay
+cd ego2robot-replay
+export PROJECT_ROOT="$PWD"
+```
+
+After completing [`docs/setup.md`](docs/setup.md) with this `PROJECT_ROOT`:
+
+```bash
+"$HOME/.venvs/ego2robot/bin/python" scripts/validate_demo.py data/processed/phone-demo-001.json
+"$HOME/.venvs/ego2robot/bin/python" scripts/evaluate.py --policy demo --demo-json data/processed/phone-demo-001.json --seed 0 --initial-state-id 0 --max-steps 500 --settle-steps 10 --post-release-steps 20 --output results/reproduction/phone_demo_001.csv --trajectory-output results/reproduction/phone_demo_001_trajectory.csv
+"$HOME/.venvs/ego2robot/bin/python" scripts/evaluate_route_ablation.py --seeds 0 --initial-states 0 1 2
+```
+
+The final route-ablation command runs nine episodes and writes its summary and trajectory CSVs into the clone. Regenerate the plots there, after the evaluation (Matplotlib is listed in `requirements-libero-smoke.txt`):
+
+```bash
 python results/presentation/generate_plots.py
 python results/presentation/generate_eef_trajectory_plot.py
 ```
@@ -109,7 +156,7 @@ To recreate the paired preview from local source footage, provide `--phone-video
 
 ## Scope and limits
 
-The original geometric MVP is six demonstrations, one LIBERO task, and a hand-designed controller. The optional extension adds an offline keypoint predictor and a failed hand-approach experiment; it does not add a successful learned manipulation policy. Annotation timestamps and confidence scores are stored in the canonical JSON but are not used to schedule actions, weight waypoints, or otherwise change control. Recovery-event annotations are supplementary human data; they are not evidence of implemented or evaluated robotic recovery. No RL, VLA fine-tuning, physical Panda evaluation, calibrated video-to-world transform, or uncertainty estimate was implemented. The matched route ablations use a few saved simulator states and do not establish broad generalization.
+The original geometric MVP is six demonstrations, one LIBERO task, and a hand-designed controller. The expanded canonical set contains 22 annotated clips split from one original phone-recording session, not 22 independent sessions. The optional extension adds an offline keypoint predictor and a failed hand-approach experiment; it does not add a successful learned manipulation policy. Annotation timestamps and confidence scores are stored in the canonical JSON but are not used to schedule actions, weight waypoints, or otherwise change control. Recovery-event annotations are supplementary human data; they are not evidence of implemented or evaluated robotic recovery. No RL, VLA fine-tuning, physical Panda evaluation, calibrated video-to-world transform, or uncertainty estimate was implemented. The matched route ablations use a few saved simulator states and do not establish broad generalization.
 
 Future work could quantify uncertainty in clicks and retargeted waypoints, detect stalled execution, and request a human correction before continuing. That is a proposed extension, not a result of this project.
 
