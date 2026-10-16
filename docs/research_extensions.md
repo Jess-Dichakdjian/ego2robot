@@ -18,7 +18,7 @@ A separate ridge model predicts a 2D human hand-to-can approach direction from f
 | Human-geometric route | 3 | 3/3 |
 | Learned approach direction | 3 | 0/3 |
 
-The learned direction changed the Panda's path but led to sustained one-finger contact without a grasp in all three saved states. This is a negative manipulation result, not a successful learned policy. [The diagnostic](learned_grasp_failure_diagnostic.md) compares a failed run with a successful geometric run.
+The learned direction changed the Panda's path but led to sustained one-finger contact without a grasp in all three saved states. This is a negative manipulation result, not a successful learned policy. [The diagnostic](learned_grasp_failure_diagnostic.md) compares a failed run with a successful geometric run. The execution bridge supplies fixed `(0, 0)` task-relative features at episode initialization; it does not update the approach prediction from live perception during the run.
 
 The supplementary interaction JSONs, canonical annotations, model weights, training/evaluation code, metrics, contact logs, and per-step traces are included. Neither training nor the diagnostic requires private source videos. Replaying the simulator comparison requires the pinned LIBERO/Robosuite/MuJoCo environment described in [setup](setup.md); the committed metrics and traces are the recorded runs.
 
@@ -31,7 +31,7 @@ python scripts/train_trajectory_prior.py --data-root data/processed --out result
 python scripts/plot_learned_prior.py --predictions results/reproduction/learned_prior/loo_predictions.csv --output results/reproduction/learned_prior/learned_sparse_prior.svg
 python scripts/audit_interaction_dataset.py --interaction-dir data/interaction_annotations --canonical-dir data/processed --output results/reproduction/interaction_audit.json
 python scripts/train_interaction_approach.py --output-dir results/reproduction/interaction_learning
-python scripts/evaluate_interaction_approach.py --initial-state-ids 0 1 2 --seed 41 --output-dir results/reproduction/interaction_learning/matched
+python scripts/evaluate_interaction_approach.py --demo-json data/processed/phone-demo-018.json --interaction-model results/reproduction/interaction_learning/approach_model.json --initial-state-ids 0 1 2 --seed 41 --output-dir results/reproduction/interaction_learning/matched
 python scripts/plot_interaction_approach.py --results-dir results/reproduction/interaction_learning/matched --output results/reproduction/interaction_learning/approach_to_robot_action.svg
 ```
 

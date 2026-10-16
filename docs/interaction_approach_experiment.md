@@ -10,7 +10,7 @@ The label export has stale `annotation_source` metadata on the supplied hand poi
 
 ## Approach-direction predictor
 
-The predictor is deliberately small: ridge regression with five positive approach examples, grouped leave-one-trial-out. Trials containing an explicit `failed_contact/push` are excluded from positive grasp-approach supervision. The target is the unit hand-minus-can vector in a task-aligned image basis. At robot execution, this direction is mapped into the live simulator object-to-target basis and changes only the policy's approach-direction input. The existing controller, offsets, tolerances, grasp schedule, and metric object/target anchors are unchanged. Neither annotations' timestamps nor confidence scores control timing or prediction weighting.
+The predictor is deliberately small: ridge regression with five positive approach examples, grouped leave-one-trial-out. Trials containing an explicit `failed_contact/push` are excluded from positive grasp-approach supervision. The target is the unit hand-minus-can vector in a task-aligned image basis. At robot execution, this direction is mapped into the live simulator object-to-target basis and changes only the policy's approach-direction input. The bridge evaluates the model once at episode initialization using fixed task-relative features `(0, 0)`; it is not dynamically updated from perception as the episode proceeds. The existing controller, offsets, tolerances, grasp schedule, and metric object/target anchors are unchanged. Neither annotations' timestamps nor confidence scores control timing or prediction weighting.
 
 | Predictor | Held-out mean angular error | Fixed 8 cm waypoint error |
 |---|---:|---:|
@@ -38,11 +38,13 @@ Across three matched saved initial states (seed 41), straight and human routes e
 
 This is an exploratory five-trial predictor evaluation and a small deterministic simulator comparison, not a generalization result. The interaction exports are from one phone recording session; leave-one-trial-out does not establish cross-session performance. No hand tracker generated these labels, no continuous motion was reconstructed, and no recovery policy, learned robot policy, VLA, or new controller was implemented.
 
-Reproduce the data/model audit and fit with:
+Reproduce the data/model audit and fit with these commands from the repository root. Outputs go under `results/reproduction/` so they do not overwrite committed metrics or models:
 
 ```bash
-python scripts/audit_interaction_dataset.py
-python scripts/train_interaction_approach.py
-python scripts/evaluate_interaction_approach.py --initial-state-ids 0 1 2 --seed 41
-python scripts/plot_interaction_approach.py
+python scripts/audit_interaction_dataset.py --interaction-dir data/interaction_annotations --canonical-dir data/processed --output results/reproduction/interaction_audit.json
+python scripts/train_interaction_approach.py --interaction-dir data/interaction_annotations --canonical-dir data/processed --output-dir results/reproduction/interaction_learning
+python scripts/evaluate_interaction_approach.py --demo-json data/processed/phone-demo-018.json --interaction-model results/reproduction/interaction_learning/approach_model.json --initial-state-ids 0 1 2 --seed 41 --output-dir results/reproduction/interaction_learning/matched
+python scripts/plot_interaction_approach.py --results-dir results/reproduction/interaction_learning/matched --output results/reproduction/interaction_learning/approach_to_robot_action.svg
 ```
+
+The plot combines the committed leave-one-trial-out prediction CSV with the newly reproduced matched-run traces. It requires Matplotlib from `requirements-libero-smoke.txt`; the audit and model-fit commands require only the package's NumPy dependency. Replaying the simulator comparison requires the pinned LIBERO environment in [setup](setup.md).
