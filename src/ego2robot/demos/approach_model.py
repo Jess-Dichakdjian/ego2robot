@@ -142,4 +142,3 @@ def fit_ridge(examples: Iterable[ApproachExample], alpha: float = 1.0) -> RidgeA
 def save_model(model: RidgeApproachModel, output: Path) -> None:
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(model.to_dict(), indent=2) + "\n", encoding="utf-8")
-
