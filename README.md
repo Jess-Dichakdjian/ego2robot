@@ -3,7 +3,7 @@
 **Can sparse points from a phone-recorded pick-and-place demonstration change a simulated Panda's route?** Ego2Robot tests this with a fixed, hand-coded controller in LIBERO. Human annotations provide a route prior; simulator state anchors metric placement.
 
 <p align="center">
-  <img src="results/presentation/phone_panda_demo.gif" alt="Original phone demonstration alongside its LIBERO Panda simulation" width="760">
+  <img src="results/presentation/phone_panda_demo_original.gif" alt="Original phone demonstration alongside its LIBERO Panda simulation" width="760">
 </p>
 
 Phone trial 01 is shown beside the corresponding Panda run using the original, unblurred phone footage. The clips are not synchronized or geometrically calibrated.

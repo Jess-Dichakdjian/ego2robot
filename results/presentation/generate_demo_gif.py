@@ -9,7 +9,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_SIM = ROOT / "results" / "presentation" / "phone_demo_001_presentation.mp4"
-DEFAULT_OUTPUT = ROOT / "results" / "presentation" / "phone_panda_demo.gif"
+DEFAULT_OUTPUT = ROOT / "results" / "presentation" / "phone_panda_demo_original.gif"
 PANEL_W, PANEL_H, LABEL_H = 360, 203, 30
 FRAME_COUNT = 36
 FRAME_MS = 100
