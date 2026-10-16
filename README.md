@@ -3,10 +3,10 @@
 **Can sparse points from a phone-recorded pick-and-place demonstration change a simulated Panda's route?** Ego2Robot tests this with a fixed, hand-coded controller in LIBERO. Human annotations provide a route prior; simulator state anchors metric placement.
 
 <p align="center">
-  <img src="results/presentation/phone_panda_demo.gif" alt="Privacy-obscured phone demonstration alongside its LIBERO Panda simulation" width="760">
+  <img src="results/presentation/phone_panda_demo.gif" alt="Original phone demonstration alongside its LIBERO Panda simulation" width="760">
 </p>
 
-Phone trial 01 is shown beside the corresponding Panda run. Identifying wrist details are blurred in this preview. The clips are not synchronized or geometrically calibrated.
+Phone trial 01 is shown beside the corresponding Panda run using the original, unblurred phone footage. The clips are not synchronized or geometrically calibrated.
 
 ## Pipeline
 
@@ -99,7 +99,7 @@ python results/presentation/generate_plots.py
 python results/presentation/generate_eef_trajectory_plot.py
 ```
 
-To recreate the paired preview from local source footage, provide `--phone-video` to `results/presentation/generate_demo_gif.py`. The script reads the phone clip, obscures the wrist area in the derived preview, and writes only to the requested output path. Raw phone clips are not included in the publication candidate. The browser annotator is [`tools/manual_video_annotator.html`](tools/manual_video_annotator.html).
+To recreate the paired preview from local source footage, provide `--phone-video` to `results/presentation/generate_demo_gif.py`. The script reads the original phone clip without altering its frames and writes the paired preview to the requested output path. Raw phone clips are not included in the publication candidate. The browser annotator is [`tools/manual_video_annotator.html`](tools/manual_video_annotator.html).
 
 ## Scope and limits
 

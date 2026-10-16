@@ -15,7 +15,7 @@ FRAME_COUNT = 36
 FRAME_MS = 100
 
 
-def read_normalized_frames(path: Path, count: int, privacy_blur: bool = False) -> list[Image.Image]:
+def read_normalized_frames(path: Path, count: int) -> list[Image.Image]:
     capture = cv2.VideoCapture(str(path))
     if not capture.isOpened():
         raise RuntimeError(f"cannot open video: {path}")
@@ -28,21 +28,6 @@ def read_normalized_frames(path: Path, count: int, privacy_blur: bool = False) -
         if not ok:
             capture.release()
             raise RuntimeError(f"cannot read frame {source_index} from {path}")
-        if privacy_blur:
-            # Obscure the arm/wrist band as the hand moves across the frame.
-            # Source clips are read-only; only this preview is modified.
-            height, width = bgr.shape[:2]
-            # Strong blur remains recognizable as an arm but hides tattoo and
-            # wristwatch details after the clip is scaled down for the README.
-            blurred = cv2.GaussianBlur(bgr, (0, 0), sigmaX=max(32, width / 14))
-            x0, y1 = int(width * 0.38), int(height * 0.58)
-            bgr[:y1, x0:] = blurred[:y1, x0:]
-            if 0.55 * total <= source_index <= 0.9 * total:
-                # During the placement reach the wrist drops below the upper
-                # mask; cover its lower-right position as well.
-                x0, x1 = int(width * 0.74), int(width * 0.99)
-                y0, y1 = int(height * 0.55), int(height * 0.82)
-                bgr[y0:y1, x0:x1] = blurred[y0:y1, x0:x1]
         rgb = cv2.cvtColor(bgr, cv2.COLOR_BGR2RGB)
         image = Image.fromarray(rgb)
         image.thumbnail((PANEL_W, PANEL_H), Image.Resampling.LANCZOS)
@@ -59,7 +44,7 @@ def main() -> None:
     parser.add_argument("--simulation-video", type=Path, default=DEFAULT_SIM)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     args = parser.parse_args()
-    phone = read_normalized_frames(args.phone_video, FRAME_COUNT, privacy_blur=True)
+    phone = read_normalized_frames(args.phone_video, FRAME_COUNT)
     sim = read_normalized_frames(args.simulation_video, FRAME_COUNT)
     try:
         font = ImageFont.truetype("DejaVuSans.ttf", 15)
@@ -70,7 +55,7 @@ def main() -> None:
     for phone_frame, sim_frame in zip(phone, sim):
         canvas = Image.new("RGB", (2 * PANEL_W, PANEL_H + LABEL_H), "#0d1117")
         draw = ImageDraw.Draw(canvas)
-        draw.text((10, 7), "PHONE TRIAL 01 · identifying details obscured", fill="#f0f6fc", font=font)
+        draw.text((10, 7), "PHONE TRIAL 01 · original footage", fill="#f0f6fc", font=font)
         draw.text((PANEL_W + 10, 7), "LIBERO SIMULATION · Panda", fill="#f0f6fc", font=font)
         canvas.paste(phone_frame, (0, LABEL_H))
         canvas.paste(sim_frame, (PANEL_W, LABEL_H))
