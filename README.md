@@ -109,4 +109,4 @@ Future work could quantify uncertainty in clicks and retargeted waypoints, detec
 
 ## License and data
 
-The software is MIT-licensed. The annotation JSON files are included for reproducibility; no separate license is specified for the personal recordings or labels. Full source videos are kept out of this publication candidate. The paired preview is a cropped-in-scope, privacy-obscured excerpt.
+The software is MIT-licensed. The annotation JSON files are included for reproducibility; no separate license is specified for the personal recordings or labels. Full source videos are kept out of this publication candidate. The paired preview is an unblurred excerpt from phone trial 01.
