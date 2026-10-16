@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520">
+<rect width="960" height="520" fill="#ffffff"/>
+<text x="32" y="42" font-family="sans-serif" font-size="24" font-weight="bold">Human object path → robot object waypoints</text>
+<text x="110" y="78" font-family="sans-serif" font-size="18">Phone image (normalized)</text>
+<text x="570" y="78" font-family="sans-serif" font-size="18">Robot workspace (m)</text>
+<rect x="100" y="90" width="340" height="340" fill="#f7f9fc" stroke="#9aa4b2"/>
+<rect x="560" y="90" width="340" height="340" fill="#f7f9fc" stroke="#9aa4b2"/>
+<polyline points="110.0,382.6 430.0,137.4" fill="none" stroke="#1565c0" stroke-width="3"/>
+<polyline points="570.0,100.0 890.0,420.0" fill="none" stroke="#2e7d32" stroke-width="3"/>
+<text x="270" y="465" text-anchor="middle" font-family="sans-serif" font-size="15">image x →</text>
+<text x="730" y="465" text-anchor="middle" font-family="sans-serif" font-size="15">robot x (m) →</text>
+<text x="32" y="260" transform="rotate(-90 32 260)" text-anchor="middle" font-family="sans-serif" font-size="15">image y ↓</text>
+<text x="500" y="260" transform="rotate(-90 500 260)" text-anchor="middle" font-family="sans-serif" font-size="15">robot y (m) ↑</text>
+<circle cx="110.0" cy="382.6" r="6" fill="#1565c0"/>
+<text x="120.0" y="374.6" font-family="sans-serif" font-size="12">start</text>
+<circle cx="430.0" cy="137.4" r="6" fill="#2e7d32"/>
+<text x="440.0" y="129.4" font-family="sans-serif" font-size="12">release</text>
+<circle cx="570.0" cy="100.0" r="6" fill="#1565c0"/>
+<circle cx="890.0" cy="420.0" r="6" fill="#2e7d32"/>
+<text x="32" y="505" font-family="sans-serif" font-size="13">schema-example-001 · move a block from start to target · object path only (not an end-effector pose)</text>
+</svg>

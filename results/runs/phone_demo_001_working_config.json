@@ -1,0 +1,38 @@
+{
+  "experiment": "human_demo_informed_fixed_controller",
+  "demo_id": "phone-demo-001",
+  "demo_json": "data/processed/phone-demo-001.json",
+  "task_id": 0,
+  "policy": "DemoConditionedPolicy",
+  "seed": 0,
+  "initial_state_id": 0,
+  "max_steps": 500,
+  "settle_steps": 10,
+  "post_release_steps": 20,
+  "controller": {
+    "max_action": 1.0,
+    "tolerance_m": 0.025,
+    "grasp_offset_z_m": 0.02,
+    "unphased_offset_z_m": 0.005,
+    "hover_offset_z_m": 0.12,
+    "carry_offset_z_m": 0.12,
+    "release_approach_offset_z_m": 0.24,
+    "release_offset_z_m": 0.08,
+    "object_key": "alphabet_soup_1_pos",
+    "target_key": "basket_1_pos",
+    "approach_distance_m": 0.08,
+    "grasp_close_steps": 20,
+    "orientation": "use_valid_initial_top_down_eef_orientation",
+    "grasp": "live_object_anchor",
+    "release_xy": "initial_basket_anchor_minus_measured_object_to_eef_offset",
+    "route_prior": "annotated_relative_xy_waypoints"
+  },
+  "successful_metrics": {
+    "success": true,
+    "episode_return": 24.0,
+    "final_object_target_distance_m": 0.06080755029683612,
+    "object_trajectory_length_m": 0.8652044589257856,
+    "steps": 133
+  },
+  "note": "Run CLI: python scripts/evaluate.py --policy demo --demo-json data/processed/phone-demo-001.json --episodes 1 --seed 0 --max-steps 500 --settle-steps 10 --post-release-steps 20 --trace-gripper --trace-contacts"
+}

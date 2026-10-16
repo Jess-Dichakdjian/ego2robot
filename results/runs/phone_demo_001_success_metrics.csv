@@ -1,0 +1,2 @@
+policy,seed,success,episode_return,final_object_target_distance_m,object_trajectory_length_m,steps
+demo,0,True,24.0,0.06080755029683612,0.8652044589257856,133

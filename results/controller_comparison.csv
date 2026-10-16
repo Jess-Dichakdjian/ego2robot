@@ -1,0 +1,3 @@
+"controller","runs","successes","success_rate","median_final_distance_m","median_trajectory_length_m","median_steps","gripper_contact"
+"generic_baseline","1 reference (same seed/state)","0/1","0%","0.513","0.006","500","True"
+"human_demo_prior","6","6/6","100%","0.06","0.885","134.5","6/6"

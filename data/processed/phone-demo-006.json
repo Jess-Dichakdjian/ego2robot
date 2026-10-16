@@ -1,0 +1,83 @@
+{
+  "demo_id": "phone-demo-006",
+  "task": "pick up a small can and place it into an open container",
+  "coordinate_frame": "image_normalized",
+  "source": "phone_video_manual",
+  "schema_version": 1,
+  "metadata": {
+    "annotation_method": "manual_video_keyframes",
+    "coordinate_origin": "top_left"
+  },
+  "frames": [
+    {
+      "timestamp_s": 0.292,
+      "object_position": [
+        0.245924,
+        0.164176
+      ],
+      "ee_position": null,
+      "ee_orientation_xyzw": null,
+      "gripper_state": null,
+      "target_position": null,
+      "task_phase": "start",
+      "source": "phone_video_manual",
+      "confidence": 0.85
+    },
+    {
+      "timestamp_s": 0.659,
+      "object_position": [
+        0.241848,
+        0.16176
+      ],
+      "ee_position": null,
+      "ee_orientation_xyzw": null,
+      "gripper_state": null,
+      "target_position": null,
+      "task_phase": "approach",
+      "source": "phone_video_manual",
+      "confidence": 0.85
+    },
+    {
+      "timestamp_s": 1.226,
+      "object_position": [
+        0.240489,
+        0.173032
+      ],
+      "ee_position": null,
+      "ee_orientation_xyzw": null,
+      "gripper_state": null,
+      "target_position": null,
+      "task_phase": "grasp",
+      "source": "phone_video_manual",
+      "confidence": 0.4
+    },
+    {
+      "timestamp_s": 1.883,
+      "object_position": [
+        0.641304,
+        0.437928
+      ],
+      "ee_position": null,
+      "ee_orientation_xyzw": null,
+      "gripper_state": null,
+      "target_position": null,
+      "task_phase": "transport",
+      "source": "phone_video_manual",
+      "confidence": 0.7
+    },
+    {
+      "timestamp_s": 3.083,
+      "object_position": [
+        0.828804,
+        0.797026
+      ],
+      "ee_position": null,
+      "ee_orientation_xyzw": null,
+      "gripper_state": null,
+      "target_position": null,
+      "task_phase": "release",
+      "source": "phone_video_manual",
+      "confidence": 0.75
+    }
+  ]
+}

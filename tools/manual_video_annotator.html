@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ego2Robot video keyframe annotator</title>
+  <style>
+    :root { color-scheme: light dark; font: 15px/1.45 system-ui, sans-serif; }
+    body { max-width: 980px; margin: 2rem auto; padding: 0 1rem; }
+    h1 { font-size: 1.5rem; }
+    .row { display: flex; flex-wrap: wrap; gap: .8rem; align-items: end; margin: 1rem 0; }
+    label { display: grid; gap: .25rem; }
+    input, select, button { font: inherit; padding: .45rem .6rem; }
+    input[type="text"] { min-width: 18rem; }
+    #canvas { display: block; max-width: 100%; max-height: 65vh; width: auto; height: auto; background: #171717; cursor: crosshair; }
+    .stage { min-height: 150px; display: grid; place-items: center; background: #171717; }
+    #status { min-height: 1.5em; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th, td { text-align: left; border-bottom: 1px solid #8886; padding: .4rem; }
+    .hint { opacity: .8; }
+  </style>
+</head>
+<body>
+  <h1>Ego2Robot video keyframe annotator</h1>
+  <p>Choose a local video, pause on each key moment, then click the object center. The video stays in your browser; it is not uploaded.</p>
+
+  <div class="row">
+    <label>Video <input id="file" type="file" accept="video/*"></label>
+    <label>Demo ID <input id="demoId" type="text" value="phone-demo-001"></label>
+  </div>
+  <label>Task <input id="task" type="text" value="pick up a small can and place it into an open container"></label>
+
+  <div class="stage"><canvas id="canvas" aria-label="Video frame; click to mark object center"></canvas></div>
+  <div class="row">
+    <button id="play" type="button" disabled>Play</button>
+    <button id="back" type="button" disabled>−1 frame</button>
+    <button id="forward" type="button" disabled>+1 frame</button>
+    <label style="flex:1">Timeline <input id="seek" type="range" min="0" max="1000" value="0" disabled></label>
+    <span id="time">0.00 s</span>
+  </div>
+  <p class="hint">Pause at start, grasp, transport, and release. Select the phase, click the object center, then add the keyframe.</p>
+  <div class="row">
+    <label>Phase
+      <select id="phase">
+        <option value="start">start</option>
+        <option value="approach">approach</option>
+        <option value="grasp">grasp</option>
+        <option value="transport">transport</option>
+        <option value="release">release</option>
+      </select>
+    </label>
+    <label>Confidence <input id="confidence" type="number" min="0" max="1" step="0.05" value="0.9"></label>
+    <button id="add" type="button" disabled>Add keyframe</button>
+    <button id="remove" type="button" disabled>Remove last</button>
+    <button id="download" type="button" disabled>Download canonical JSON</button>
+  </div>
+  <div id="status" role="status"></div>
+  <table>
+    <thead><tr><th>Time</th><th>Phase</th><th>Object (x, y)</th><th>Confidence</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+
+  <video id="video" muted playsinline hidden></video>
+  <script>
+    const fileInput = document.querySelector("#file");
+    const video = document.querySelector("#video");
+    const canvas = document.querySelector("#canvas");
+    const ctx = canvas.getContext("2d");
+    const seek = document.querySelector("#seek");
+    const timeLabel = document.querySelector("#time");
+    const status = document.querySelector("#status");
+    const frames = [];
+    let pending = null;
+    let objectUrl = null;
+
+    function updateControls(ready) {
+      for (const id of ["play", "back", "forward", "seek", "add"]) {
+        document.querySelector(`#${id}`).disabled = !ready;
+      }
+      document.querySelector("#remove").disabled = frames.length === 0;
+      document.querySelector("#download").disabled = frames.length < 2;
+    }
+
+    function render() {
+      if (video.readyState >= 2 && canvas.width && canvas.height) {
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        for (const item of frames) drawPoint(item.x, item.y, "#35d07f", item.task_phase);
+        if (pending) drawPoint(pending.x, pending.y, "#ff5252", "selected");
+        timeLabel.textContent = `${video.currentTime.toFixed(2)} s`;
+        if (video.duration) seek.value = String(Math.round(video.currentTime / video.duration * 1000));
+      }
+      requestAnimationFrame(render);
+    }
+
+    function drawPoint(x, y, color, label) {
+      const px = x * canvas.width;
+      const py = y * canvas.height;
+      ctx.beginPath();
+      ctx.arc(px, py, Math.max(5, canvas.width * .008), 0, Math.PI * 2);
+      ctx.fillStyle = color;
+      ctx.fill();
+      ctx.lineWidth = Math.max(2, canvas.width * .003);
+      ctx.strokeStyle = "#111";
+      ctx.stroke();
+      ctx.font = `${Math.max(12, canvas.width * .022)}px system-ui`;
+      ctx.fillStyle = color;
+      ctx.fillText(label, px + 10, py - 8);
+    }
+
+    fileInput.addEventListener("change", () => {
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+      const file = fileInput.files[0];
+      if (!file) return;
+      objectUrl = URL.createObjectURL(file);
+      video.src = objectUrl;
+      status.textContent = "Loading local video…";
+    });
+
+    video.addEventListener("loadedmetadata", () => {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      seek.disabled = false;
+      updateControls(true);
+      status.textContent = `Loaded ${canvas.width}×${canvas.height}, ${video.duration.toFixed(1)} s.`;
+    });
+
+    document.querySelector("#play").addEventListener("click", async (event) => {
+      if (video.paused) {
+        await video.play();
+        event.currentTarget.textContent = "Pause";
+      } else {
+        video.pause();
+        event.currentTarget.textContent = "Play";
+      }
+    });
+    video.addEventListener("pause", () => { document.querySelector("#play").textContent = "Play"; });
+    video.addEventListener("play", () => { document.querySelector("#play").textContent = "Pause"; });
+    document.querySelector("#back").addEventListener("click", () => { video.currentTime = Math.max(0, video.currentTime - 1 / 30); });
+    document.querySelector("#forward").addEventListener("click", () => { video.currentTime = Math.min(video.duration, video.currentTime + 1 / 30); });
+    seek.addEventListener("input", () => { if (video.duration) video.currentTime = Number(seek.value) / 1000 * video.duration; });
+
+    canvas.addEventListener("click", (event) => {
+      const rect = canvas.getBoundingClientRect();
+      pending = {
+        x: Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width)),
+        y: Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height)),
+      };
+      document.querySelector("#add").disabled = false;
+      status.textContent = `Selected object center at (${pending.x.toFixed(3)}, ${pending.y.toFixed(3)}).`;
+    });
+
+    document.querySelector("#add").addEventListener("click", () => {
+      if (!pending) return;
+      const timestamp = Number(video.currentTime.toFixed(3));
+      const confidence = Number(document.querySelector("#confidence").value);
+      if (!Number.isFinite(confidence) || confidence < 0 || confidence > 1) {
+        status.textContent = "Confidence must be between 0 and 1.";
+        return;
+      }
+      if (frames.some((item) => Math.abs(item.timestamp_s - timestamp) < 0.01)) {
+        status.textContent = "A keyframe already exists at this time; move to a different frame.";
+        return;
+      }
+      frames.push({
+        timestamp_s: timestamp,
+        object_position: [Number(pending.x.toFixed(6)), Number(pending.y.toFixed(6))],
+        ee_position: null,
+        ee_orientation_xyzw: null,
+        gripper_state: null,
+        target_position: null,
+        task_phase: document.querySelector("#phase").value,
+        source: "phone_video_manual",
+        confidence,
+        x: pending.x,
+        y: pending.y,
+      });
+      frames.sort((a, b) => a.timestamp_s - b.timestamp_s);
+      pending = null;
+      document.querySelector("#add").disabled = true;
+      renderRows();
+      status.textContent = `${frames.length} keyframe(s) recorded.`;
+    });
+
+    function renderRows() {
+      document.querySelector("#rows").innerHTML = frames.map((item) =>
+        `<tr><td>${item.timestamp_s.toFixed(3)} s</td><td>${item.task_phase}</td>` +
+        `<td>(${item.object_position[0].toFixed(3)}, ${item.object_position[1].toFixed(3)})</td>` +
+        `<td>${item.confidence.toFixed(2)}</td></tr>`
+      ).join("");
+      updateControls(video.readyState >= 2);
+    }
+
+    document.querySelector("#remove").addEventListener("click", () => {
+      frames.pop();
+      renderRows();
+      status.textContent = `${frames.length} keyframe(s) recorded.`;
+    });
+
+    document.querySelector("#download").addEventListener("click", () => {
+      const demoId = document.querySelector("#demoId").value.trim();
+      const task = document.querySelector("#task").value.trim();
+      if (!demoId || !task || frames.length < 2) {
+        status.textContent = "Enter a demo ID and task, and record at least two keyframes.";
+        return;
+      }
+      const demo = {
+        demo_id: demoId,
+        task,
+        coordinate_frame: "image_normalized",
+        source: "phone_video_manual",
+        schema_version: 1,
+        metadata: { annotation_method: "manual_video_keyframes", coordinate_origin: "top_left" },
+        frames: frames.map(({ x, y, ...frame }) => frame),
+      };
+      const blob = new Blob([JSON.stringify(demo, null, 2) + "\n"], { type: "application/json" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `${demoId.replace(/[^a-z0-9_-]+/gi, "_")}.json`;
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+      status.textContent = "Canonical demo JSON downloaded. Move it into data/processed/.";
+    });
+
+    updateControls(false);
+    requestAnimationFrame(render);
+  </script>
+</body>
+</html>

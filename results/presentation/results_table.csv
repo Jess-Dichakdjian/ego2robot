@@ -1,0 +1,4 @@
+route,episodes,success,final_distance_m_median_range,object_path_m_median_range,steps_median_range
+Human route,3,3/3 (100%),0.0610 (0.0608–0.0610),0.8681 (0.8652–0.8763),133 (133–135)
+Straight route,3,3/3 (100%),0.0600 (0.0600–0.0600),0.7960 (0.7894–0.8015),121 (121–121)
+Shuffled route,3,3/3 (100%),0.0600 (0.0600–0.0600),0.9366 (0.9357–0.9464),145 (145–147)

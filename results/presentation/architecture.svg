@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="300" viewBox="0 0 1280 300" role="img" aria-labelledby="title desc">
+  <title id="title">Ego2Robot MVP architecture</title>
+  <desc id="desc">Phone video flows through manual annotation, canonical demo, retargeting, LIBERO Panda simulation, and evaluation.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#617284"/>
+    </marker>
+  </defs>
+  <rect width="1280" height="300" fill="#f7f9fb"/>
+  <text x="48" y="54" font-family="Segoe UI, Arial, sans-serif" font-size="25" font-weight="600" fill="#172b3a">Phone demonstration to simulated robot evaluation</text>
+  <g font-family="Segoe UI, Arial, sans-serif">
+    <g fill="#ffffff" stroke="#c7d2dc" stroke-width="2">
+      <rect x="48" y="112" width="164" height="108" rx="12"/>
+      <rect x="254" y="112" width="164" height="108" rx="12"/>
+      <rect x="460" y="112" width="164" height="108" rx="12"/>
+      <rect x="666" y="112" width="164" height="108" rx="12"/>
+      <rect x="872" y="112" width="164" height="108" rx="12"/>
+      <rect x="1078" y="112" width="164" height="108" rx="12"/>
+    </g>
+    <g stroke="#617284" stroke-width="2.5" marker-end="url(#arrow)">
+      <path d="M 216 166 H 246"/><path d="M 422 166 H 452"/>
+      <path d="M 628 166 H 658"/><path d="M 834 166 H 864"/>
+      <path d="M 1040 166 H 1070"/>
+    </g>
+    <g text-anchor="middle" fill="#172b3a">
+      <text x="130" y="153" font-size="19" font-weight="600">Phone video</text>
+      <text x="130" y="184" font-size="14" fill="#536677">person-recorded</text>
+      <text x="336" y="153" font-size="19" font-weight="600">Annotation</text>
+      <text x="336" y="184" font-size="14" fill="#536677">2D can-center clicks</text>
+      <text x="542" y="153" font-size="19" font-weight="600">Canonical demo</text>
+      <text x="542" y="184" font-size="14" fill="#536677">phases + timestamps</text>
+      <text x="748" y="153" font-size="19" font-weight="600">Retargeting</text>
+      <text x="748" y="184" font-size="14" fill="#536677">relative XY path prior</text>
+      <text x="954" y="153" font-size="19" font-weight="600">LIBERO Panda</text>
+      <text x="954" y="184" font-size="14" fill="#536677">simulator-grounded task</text>
+      <text x="1160" y="153" font-size="19" font-weight="600">Evaluation</text>
+      <text x="1160" y="184" font-size="14" fill="#536677">success + motion metrics</text>
+    </g>
+    <text x="640" y="264" text-anchor="middle" font-size="15" fill="#536677">Human demonstration: route shape, approach direction, and phase order · LIBERO: metric object and container poses</text>
+  </g>
+</svg>

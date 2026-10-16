@@ -1,0 +1,40 @@
+{
+  "coordinate_frame": "image_normalized",
+  "demo_id": "schema-example-001",
+  "frames": [
+    {
+      "confidence": 1.0,
+      "ee_orientation_xyzw": null,
+      "ee_position": null,
+      "gripper_state": null,
+      "object_position": [
+        0.25,
+        0.7
+      ],
+      "source": "synthetic_keyframe",
+      "target_position": null,
+      "task_phase": "start",
+      "timestamp_s": 0.0
+    },
+    {
+      "confidence": 1.0,
+      "ee_orientation_xyzw": null,
+      "ee_position": null,
+      "gripper_state": 0.0,
+      "object_position": [
+        0.72,
+        0.34
+      ],
+      "source": "synthetic_keyframe",
+      "target_position": null,
+      "task_phase": "release",
+      "timestamp_s": 1.0
+    }
+  ],
+  "metadata": {
+    "is_synthetic": true
+  },
+  "schema_version": 1,
+  "source": "synthetic_example",
+  "task": "move a block from start to target"
+}
